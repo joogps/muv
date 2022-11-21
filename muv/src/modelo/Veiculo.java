@@ -1,4 +1,4 @@
-package muv;
+package modelo;
 
 public class Veiculo {
 
