@@ -10,7 +10,6 @@ public class Linha {
 	public Linha(String nome, ArrayList<Ponto> pontos){
 		this.nome = nome;
 		this.pontos = pontos;
-		
 	}
 	
 	public String getnome() {
@@ -21,17 +20,17 @@ public class Linha {
 		this.nome = nome;
 	}
 	
-	public ArrayList<Ponto> getpontos(){
+	public ArrayList<Ponto> getPontos() {
 		return pontos;
 	}
 	
-	public void setpontos(ArrayList<Ponto> pontos) {
+	public void setPontos(ArrayList<Ponto> pontos) {
 		this.pontos = pontos;
 	}
 
 	public Float distanciaAbsoluta() {
 		if (pontos.size() > 1) {
-			return pontos.get(0).localizacao.distancia(pontos.get(pontos.size()-1).localizacao);;
+			return pontos.get(0).localizacao.distancia(pontos.get(pontos.size()-1).localizacao);
 		}
 		return (float) 0.0;
 	}
