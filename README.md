@@ -1,8 +1,5 @@
-# muv
-Repositório do nosso projeto de Programação III no semestre 2022.2
-
 <h1> muv
-  <img align="right" alt="Logo do projeto" src="./imagens/logotipo.png" width=74px>
+  <img align="right" alt="Logo do projeto" src="./imagens/logotipo.png" width=128px>
 </h1>
 
 <p>
