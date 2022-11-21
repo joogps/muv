@@ -14,7 +14,7 @@ public class Empresa {
 		this.cnpj = cnpj;
 		this.linhas = linhas;
 		this.frota = frota;
-		
+	
 	}
 	
 	public String getnome() {
