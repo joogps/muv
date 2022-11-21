@@ -17,35 +17,36 @@ public class Empresa {
 	
 	}
 	
-	public String getnome() {
+	public String getNome() {
 		return nome;
 	}
 	
-	public void setnome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
-	public String getcnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 	
-	public void setcnpj(String cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 	
-	public ArrayList<Linha> getlinhas(){
+	public ArrayList<Linha> getLinhas(){
 		return linhas;
 	}
 	
-	public void setlinhas(ArrayList<Linha> linhas) {
+	public void setLinhas(ArrayList<Linha> linhas) {
 		this.linhas = linhas;
 	}
 	
-	public ArrayList<Veiculo> getfrota(){
+	public ArrayList<Veiculo> getFrota(){
 		return frota;
 	}
 	
-	public void setfrota(ArrayList<Veiculo> frota) {
+	public void setFrota(ArrayList<Veiculo> frota) {
 		this.frota = frota;
 	}
+	
 }

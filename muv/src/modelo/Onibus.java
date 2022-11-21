@@ -14,40 +14,40 @@ public class Onibus extends Veiculo {
 		this.capacidade = capacidade;
 		this.andares = andares;
 		this.sanfonado = sanfonado;
-		
-		}
-	public int getassentos() {
+	}
+	
+	public int getAssentos() {
 		return assentos;
-		}
+	}
 	
-	public void setassentos(int assentos) {
+	public void setAssentos(int assentos) {
 		this.assentos = assentos;
-		}
+	}
 	
-	public int getcapacidade() {
-	return capacidade;
-		}
+	public int getCapacidade() {
+		return capacidade;
+	}
 	
-	public void setcapacidade(int capacidade) {
-	this.capacidade = capacidade;
-		}
+	public void setCapacidade(int capacidade) {
+		this.capacidade = capacidade;
+	}
 	
-	public int getandares() {
-	return andares;
-		}
-
-	public void setandares(int andares) {
-	this.andares = andares;
-		}
+	public int getAndares() {
+		return andares;
+	}
 	
-	public boolean getsanfonado() {
+	public void setAndares(int andares) {
+		this.andares = andares;
+	}
+	
+	public boolean getSanfonado() {
 		return sanfonado;
-		}
-
-		public void setsanfonado(boolean sanfonado) {
+	}
+	
+	public void setSanfonado(boolean sanfonado) {
 		this.sanfonado = sanfonado;
-		}
-
+	}
+	
 }
 
 

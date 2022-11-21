@@ -13,27 +13,27 @@ public class Veiculo {
 		
 	}
 	
-	public String getmarca() {
+	public String getMarca() {
 		return marca;
 	}
 	
-	public void setmarca(String marca) {
+	public void setMarca(String marca) {
 		this.marca = marca;
 	}
 	
-	public String getmodelo() {
+	public String getModelo() {
 		return modelo;
 	}
 	
-	public void setmodelo(String modelo) {
+	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 	
-	public String getcor() {
+	public String getCor() {
 		return cor;
 	}
 	
-	public void setcor(String cor) {
+	public void setCor(String cor) {
 		this.cor = cor;
 	}
 	

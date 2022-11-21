@@ -9,11 +9,11 @@ public class Van extends Veiculo {
 		this.assentos = assentos;
 		
 	}
-	public int getassentos() {
+	public int getAssentos() {
 		return assentos;
 	}
 	
-	public void setassentos(int assentos) {
+	public void setAssentos(int assentos) {
 		this.assentos = assentos;
 	}
 

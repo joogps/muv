@@ -14,15 +14,15 @@ public class Ponto {
 		return localizacao;
 	}
 	
-	public void setlocalizacao(Coordenadas localizacao) {
+	public void setLocalizacao(Coordenadas localizacao) {
 		this.localizacao = localizacao;
 	}
 	
-	public Boolean getcoberto() {
+	public Boolean getCoberto() {
 		return coberto;
 	}
 	
-	public void setcoberto(Boolean coberto) {
+	public void setCoberto(Boolean coberto) {
 		this.coberto = coberto;
 	}
 	
