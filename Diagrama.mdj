@@ -1411,7 +1411,7 @@
 											"top": 646,
 											"width": 195.46337890625,
 											"height": 13,
-											"text": "-lat: Float",
+											"text": "-latitude: Float",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1428,7 +1428,7 @@
 											"top": 661,
 											"width": 195.46337890625,
 											"height": 13,
-											"text": "-long: Float",
+											"text": "-longitude: Float",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3852,7 +3852,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGEB9rj1lpMvsg="
 							},
-							"name": "lat",
+							"name": "latitude",
 							"visibility": "private",
 							"type": "Float"
 						},
@@ -3862,7 +3862,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGEB9rj1lpMvsg="
 							},
-							"name": "long",
+							"name": "longitude",
 							"visibility": "private",
 							"type": "Float"
 						}
