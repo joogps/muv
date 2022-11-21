@@ -1,5 +1,9 @@
 package modelo;
 
-public class Van {
+public class Van extends Veiculo {
+	
+	public int assentos;
+	
+	
 
 }
