@@ -7,10 +7,6 @@ public class Linha {
 	public String nome;
 	public ArrayList<Ponto> pontos;
 	
-	public static double distanciaAbsoluta() {
-		return 0.0;
-	}
-	
 	public Linha(String nome, ArrayList<Ponto> pontos){
 		this.nome = nome;
 		this.pontos = pontos;
@@ -33,4 +29,10 @@ public class Linha {
 		this.pontos = pontos;
 	}
 
+	public Float distanciaAbsoluta() {
+		if (pontos.size() > 1) {
+			return pontos.get(0).localizacao.distancia(pontos.get(pontos.size()-1).localizacao);;
+		}
+		return (float) 0.0;
+	}
 }
