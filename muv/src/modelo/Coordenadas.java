@@ -24,5 +24,9 @@ public class Coordenadas {
 	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
+
+	public Float distancia(Coordenadas c) {
+		return (float) Math.sqrt(Math.pow(this.latitude - c.latitude, 2) + Math.pow(this.longitude - c.longitude, 2));
+	}
 	
 }
