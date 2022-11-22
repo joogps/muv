@@ -17,6 +17,8 @@ public class Empresa {
 	
 	}
 	
+	public Empresa() {}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -47,6 +49,12 @@ public class Empresa {
 	
 	public void setFrota(ArrayList<Veiculo> frota) {
 		this.frota = frota;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 	
 }
