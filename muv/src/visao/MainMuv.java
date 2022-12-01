@@ -44,6 +44,7 @@ public class MainMuv {
 				// fazer validacao
 				System.out.println("Cnpj:");
 				String cnpj = leitura.nextLine();
+
 				// fazer validacao
 				empresa.setNome(nome);
 
@@ -57,16 +58,24 @@ public class MainMuv {
 					System.out.println("Erro");
 				}
 
-				bancoEmpresa.inserir(empresa);
+				boolean valida = bancoEmpresa.inserir(empresa);
+				if (valida == true) {
+					System.out.println("Cadastrado com sucesso!");
+				} else {
+					System.out.println("Erro ao cadastrar!");
+				}
 
 			}
+				break;
 			case 2: {
 				System.out.println("Digite o codigo da pessoa que deseja alterar:");
 				// finalizar codigo
+				break;
 			}
 			case 3: {
 				System.out.println("Digite o codigo da pessoa que deseja excluir:");
 				// finalizar codigo
+				break;
 			}
 			case 4: {
 				ArrayList<Empresa> lista = bancoEmpresa.listarEmpresas();
@@ -75,6 +84,8 @@ public class MainMuv {
 					// TODO fazer a sobrescrita do toString na classe Empresa
 					System.out.println(empresa);
 				}
+
+				break;
 			}
 
 			}
