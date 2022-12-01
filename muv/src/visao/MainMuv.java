@@ -37,6 +37,8 @@ public class MainMuv {
 			case 0: {
 				break;
 			}
+			
+			
 			case 1: {
 				Empresa empresa = new Empresa();
 				System.out.println("Nome:");
@@ -64,9 +66,9 @@ public class MainMuv {
 				} else {
 					System.out.println("Erro ao cadastrar!");
 				}
-
-			}
 				break;
+			}
+				
 			case 2: {
 				System.out.println("Digite o codigo da pessoa que deseja alterar:");
 				// finalizar codigo
@@ -74,7 +76,14 @@ public class MainMuv {
 			}
 			case 3: {
 				System.out.println("Digite o codigo da pessoa que deseja excluir:");
-				// finalizar codigo
+				boolean excluir = bancoEmpresa.inserir(Excluir); //excluir e arrumar o excluir
+				if(excluir == true) {
+					System.out.println("Excluido com sucesso");
+				} else {
+					System.out.println("Erro ao excluir");
+				}
+				
+				
 				break;
 			}
 			case 4: {
