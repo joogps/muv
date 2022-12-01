@@ -76,7 +76,7 @@ public class MainMuv {
 			}
 			case 3: {
 				System.out.println("Digite o codigo da pessoa que deseja excluir:");
-				boolean excluir = bancoEmpresa.inserir(Excluir); //excluir e arrumar o excluir
+				boolean excluir = bancoEmpresa.excluir(cnpj); //excluir e arrumar o excluir
 				if(excluir == true) {
 					System.out.println("Excluido com sucesso");
 				} else {
