@@ -11,17 +11,20 @@ import controle.EmpresaDAO;
 import modelo.Coordenadas;
 import modelo.Empresa;
 import modelo.Linha;
+import modelo.Onibus;
 import modelo.Ponto;
+import modelo.Van;
+import modelo.Veiculo;
 
 public class MainMuv {
+	static Scanner leitura = new Scanner(System.in);
+	static EmpresaDAO bancoEmpresa = EmpresaDAO.getInstancia();
 
 	public static void main(String[] args) {
-		Integer opcaoSelecionada = Integer.MAX_VALUE;
-		Scanner leitura = new Scanner(System.in);
-		EmpresaDAO bancoEmpresa = EmpresaDAO.getInstancia();
-
-		var path = Paths.get("/Users/joogps/Desktop/muv/muv/src/visao/banner.txt");
+		// Substituir com o caminho do arquivo na máquina
+		var path = Paths.get("/Users/joogps/Desktop/muv/muv/src/visao/logo.txt");
 		System.out.println(path);
+
 		try {
 			String logo = Files.readString(path);
 			System.out.println(logo);
@@ -29,8 +32,17 @@ public class MainMuv {
 			e.printStackTrace();
 		}
 
-		while (opcaoSelecionada != 0) {
-			System.out.println(separador("MENU PRINCIPAL"));
+		menu();
+
+		leitura.close();
+
+	}
+
+	static public void menu() {
+		Integer opcao = Integer.MAX_VALUE;
+
+		while (opcao != 0) {
+			System.out.println(separador("MENU"));
 			System.out.println("0 • SAIR");
 			System.out.println("1 • CADASTRAR");
 			System.out.println("2 • ALTERAR");
@@ -39,151 +51,187 @@ public class MainMuv {
 
 			System.out.println(separador(""));
 
-			opcaoSelecionada = Integer.valueOf(leitura.nextLine());
+			opcao = Integer.valueOf(leitura.nextLine());
 
-			switch (opcaoSelecionada) {
+			switch (opcao) {
 			case 0: {
 				break;
 			}
-			
 			case 1: {
-				Empresa empresa = new Empresa();
-				
-				String nome = "";
-				while (true) {
-					System.out.println("Digite o nome da empresa:");
-					nome = leitura.nextLine();
-					
-					if (nome.isEmpty()) {
-						System.out.println("O nome não pode ser vazio. Tente novamente.");
-					} else {
-						break;
-					}
-				}
-
-				String cnpj = "";
-				while (true) {
-					System.out.println("Digite o CNPJ da empresa:");
-					cnpj = leitura.nextLine();
-					
-					if (cnpj.isEmpty()) {
-						System.out.println("O CNPJ não pode ser vazio. Tente novamente.");
-					} else if (cnpj.length() != 14) {
-						System.out.println("O CNPJ deve conter 14 dígitos. Tente novamente.");
-					} else {
-						break;
-					}
-				}
-
-				empresa.setNome(nome);
-				empresa.setCnpj(cnpj);
-
-				String nomeLinha = "";
-
-				while (true) {
-					System.out.println("Digite o nome da linha para cadastrar uma nova. Para finalizar, pressione enter.");
-					nomeLinha = leitura.nextLine();
-
-					if (nomeLinha.isEmpty()) {
-						break;
-					} else {
-						ArrayList<Ponto> pontos = new ArrayList<>();
-						String latitudePonto = "";
-						String longitudePonto = "";
-
-						while (true) {
-							System.out.println("Você quer cadastrar um novo ponto? (s/n)");
-							String resposta = leitura.nextLine();
-
-							if (resposta.equals("s")) {
-								while (true) {
-									System.out.println("Digite a latitude do ponto:");
-									latitudePonto = leitura.nextLine();
-
-									if (latitudePonto.isEmpty()) {
-										System.out.println("A latitude não pode ser vazia. Tente novamente.");
-									} else {
-										break;
-									}
-								}
-
-								while (true) {
-									System.out.println("Digite a longitude do ponto:");
-									longitudePonto = leitura.nextLine();
-
-									if (longitudePonto.isEmpty()) {
-										System.out.println("A longitude não pode ser vazia. Tente novamente.");
-									} else {
-										break;
-									}
-								}
-
-								System.out.println("O ponto é coberto? (s/n)");
-								Boolean coberto = leitura.nextLine() == "s";
-								Coordenadas coordenadas = new Coordenadas(Float.valueOf(latitudePonto), Float.valueOf(longitudePonto));
-								Ponto ponto = new Ponto(coordenadas, coberto);
-								pontos.add(ponto);
-							} else {
-								break;
-							}
-						}
-
-
-						Linha linha = new Linha(nomeLinha, pontos);
-						empresa.addLinha(linha);
-					}
-				}
-
-				boolean valida = bancoEmpresa.inserir(empresa);
-				if (valida == true) {
-					System.out.println("Cadastrado com sucesso!");
-				} else {
-					System.out.println("Erro ao cadastrar a empresa.");
-				}
+				cadastrar();
 				break;
 			}
-				
 			case 2: {
-				System.out.println("Digite o CNPJ da empresa que deseja alterar:");
-				
+				atualizar();
 				break;
 			}
 			case 3: {
-				System.out.println("Digite o CNPJ da empresa que deseja excluir:");
-				String cnpj = leitura.nextLine();
-
-				boolean excluir = bancoEmpresa.excluir(cnpj);
-				if(excluir == true) {
-					System.out.println("Excluido com sucesso");
-				} else {
-					System.out.println("Erro ao excluir");
-				}
-				
+				excluir();
 				break;
 			}
 			case 4: {
 				listar();
-
 				break;
 			}
-
 			}
 
+			System.out.println(separador(""));
+		}
+	}
+
+	static public void atualizar() {
+		System.out.println(separador("ATUALIZAR"));
+		System.out.println("Digite o CNPJ da empresa que deseja alterar:");
+	}
+
+	static public void cadastrar() {
+		System.out.println(separador("CADASTRAR"));
+
+		Empresa empresa = new Empresa();
+				
+		String nome = lerString("o nome", 0);
+		String cnpj = lerString("o CNPJ", 14).substring(0, 14);
+
+		empresa.setNome(nome);
+		empresa.setCnpj(cnpj);
+
+		while (true) {
+			Linha linha = cadastrarLinha();
+			if (linha == null) {
+				break;
+			}
+			empresa.addLinha(linha);
 		}
 
-		leitura.close();
+		while (true) {
+			Veiculo veiculo = cadastrarVeiculo();
+			if (veiculo == null) {
+				break;
+			}
+			empresa.addVeiculo(veiculo);
+		}
 
+		boolean valida = bancoEmpresa.inserir(empresa);
+		if (valida == true) {
+			System.out.println("\nCadastrado realizado com sucesso!");
+		} else {
+			System.out.println("\nErro ao cadastrar a empresa.");
+		}
+	}
+
+	public static Veiculo cadastrarVeiculo() {
+		char tipo = lerChar("Digite o tipo de veículo que deseja cadastrar (v: van, o: ônibus). Para finalizar, pressione enter.");
+
+		if (tipo != 'v' && tipo != 'o') {
+			return null;
+		}
+
+		String marca = lerString("a marca", 0);
+		String modelo = lerString("o modelo", 0);
+		String cor = lerString("a cor", 0);
+
+		Veiculo veiculo = null;
+
+		if (tipo == 'v') {
+			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
+
+			veiculo = new Van(marca, modelo, cor, assentos);
+		} else if (tipo == 'o') {
+			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
+			int capacidade = Integer.valueOf(lerString("a capacidade total", 0));
+			int andares = Integer.valueOf(lerString("o número de andares", 0));
+			boolean sanfonado = lerBooleano("O ônibus é sanfonado?");
+
+			veiculo = new Onibus(marca, modelo, cor, assentos, capacidade, andares, sanfonado);
+		}
+
+		return veiculo;
+	}
+
+	public static Linha cadastrarLinha() {
+		Linha linha;
+
+		System.out.println("\nDigite o nome da linha para cadastrar uma nova. Para finalizar, pressione enter.");
+		String nomeLinha = leitura.nextLine();
+
+		if (nomeLinha.isEmpty()) {
+			return null;
+		} else {
+			ArrayList<Ponto> pontos = new ArrayList<>();
+
+			while (true) {
+				boolean cadastrar = lerBooleano("Você quer cadastrar um novo ponto?");
+
+				if (cadastrar) {
+					String latitude = lerString("a latitude do ponto", 0);
+					String longitude = lerString("a longitude do ponto", 0);
+					Boolean coberto = lerBooleano("O ponto é coberto?");
+
+					Coordenadas coordenadas = new Coordenadas(Float.valueOf(latitude), Float.valueOf(longitude));
+					Ponto ponto = new Ponto(coordenadas, coberto);
+					pontos.add(ponto);
+				} else {
+					break;
+				}
+			}
+
+			linha = new Linha(nomeLinha, pontos);
+		}
+
+		return linha;
+	}
+
+	public static void excluir() {
+		System.out.println(separador("EXCLUIR"));
+		System.out.println("Digite o CNPJ da empresa que deseja excluir:");
+		String cnpj = leitura.nextLine();
+
+		boolean excluir = bancoEmpresa.excluir(cnpj);
+		if (excluir == true) {
+			System.out.println("Excluída com sucesso.");
+		} else {
+			System.out.println("Erro ao excluir. Tente novamente.");
+		}
 	}
 
 	static public void listar() {
-		EmpresaDAO bancoEmpresa = EmpresaDAO.getInstancia();
-
 		System.out.println(separador("EMPRESAS"));
 		ArrayList<Empresa> lista = bancoEmpresa.listarEmpresas();
 		for (Empresa empresa : lista) {
 			System.out.println(empresa);
 		}
-		System.out.println(separador(""));
+	}
+
+	static String lerString(String nome, Integer digitos) {
+		String valor = "";
+		while (true) {
+			System.out.println("\nDigite " + nome + ":");
+			valor = leitura.nextLine();
+			
+			if (valor.isEmpty()) {
+				System.out.println("O " + nome + " não pode ser vazio. Tente novamente.");
+			} else if (valor.length() < digitos) {
+				System.out.println("O " + nome + " deve conter no mínimo " + digitos + " digitos. Tente novamente.");
+			} else {
+				break;
+			}
+		}
+
+		return valor;
+	}
+
+	static boolean lerBooleano(String prompt) {
+		char resposta = lerChar("\n"+prompt+" (s/n)");
+		return resposta == 's';
+	}
+
+	static char lerChar(String prompt) {
+		System.out.println(prompt);
+		if (prompt.isEmpty()) {
+			return ' ';
+		} else {
+			return Character.toLowerCase(leitura.nextLine().charAt(0));
+		}
 	}
 
 	static String separador(String title) {

@@ -10,7 +10,12 @@ public abstract class Veiculo {
 		this.marca = marca;
 		this.modelo = modelo; 
 		this.cor = cor;
-		
+	}
+
+	public Veiculo() {
+		this.marca = "";
+		this.modelo = "";
+		this.cor = "";
 	}
 	
 	public String getMarca() {

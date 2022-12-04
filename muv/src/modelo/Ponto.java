@@ -28,7 +28,7 @@ public class Ponto {
 	
 	@Override
 	public String toString() {
-		String string = "Latitude: " + localizacao.latitude + " - Longitude: " + localizacao.longitude + (coberto ? " - Coberto" : " - Descoberto");
+		String string = localizacao.latitude + "º, " + localizacao.longitude + "º " + (coberto ? "(coberto)" : "(descoberto)");
 		return string;
 	}
 }

@@ -63,6 +63,14 @@ public class Empresa {
 	public void setFrota(ArrayList<Veiculo> frota) {
 		this.frota = frota;
 	}
+
+	public void addVeiculos(ArrayList<Veiculo> veiculos) {
+		this.frota.addAll(veiculos);
+	}
+
+	public void addVeiculo(Veiculo veiculo) {
+		this.frota.add(veiculo);
+	}
 	
 	@Override
 	public String toString() {

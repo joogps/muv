@@ -37,10 +37,11 @@ public class Linha {
 
 	@Override
 	public String toString() {
-		String string = nome + " • " + pontos.size() + " pontos\n" + " • " + distanciaAbsoluta() + " km\n";
+		String string = nome + " • " + pontos.size() + " pontos" + " • " + distanciaAbsoluta() + " km\n";
+		int indice = 0;
 		for (Ponto ponto : pontos) {
-			string += "Ponto 1 - "+ ponto.toString() + "\n";
-		}
+			string += "\nPonto " + indice + ": " + ponto.toString() + "";
+			indice++; 		}
 		
 		return string;
 	}
