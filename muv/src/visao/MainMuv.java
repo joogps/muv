@@ -90,7 +90,9 @@ public class MainMuv {
 		Empresa empresa = new Empresa();
 				
 		String nome = lerString("o nome", 0);
-		String cnpj = lerString("o CNPJ", 14).substring(0, 14);
+		String cnpj = lerString("o CNPJ", 14)
+						.substring(0, 14)
+						.replaceAll("[^0-9]", "");
 
 		empresa.setNome(nome);
 		empresa.setCnpj(cnpj);
