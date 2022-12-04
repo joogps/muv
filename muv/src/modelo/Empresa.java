@@ -17,7 +17,12 @@ public class Empresa {
 	
 	}
 	
-	public Empresa() {}
+	public Empresa() {
+		this.nome = "";
+		this.cnpj = "";
+		this.linhas = new ArrayList<>();
+		this.frota = new ArrayList<>();
+	}
 	
 	public String getNome() {
 		return nome;
@@ -42,6 +47,14 @@ public class Empresa {
 	public void setLinhas(ArrayList<Linha> linhas) {
 		this.linhas = linhas;
 	}
+
+	public void addLinhas(ArrayList<Linha> linhas) {
+		this.linhas.addAll(linhas);
+	}
+
+	public void addLinha(Linha linha) {
+		this.linhas.add(linha);
+	}
 	
 	public ArrayList<Veiculo> getFrota(){
 		return frota;
@@ -53,8 +66,15 @@ public class Empresa {
 	
 	@Override
 	public String toString() {
-		
-		return super.toString();
+		String cnpjPattern = "(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})";
+		String parsedCnpj = String.valueOf(cnpj).replaceAll(cnpjPattern, "$1.$2.$3/$4-$5");
+
+		String string = nome;
+		string += " • " + parsedCnpj;
+		for (Linha linha: linhas) {
+			string+="\n"+"-".repeat(40)+"\n";
+			string += linha.toString();
+		}
+		return string;
 	}
-	
 }

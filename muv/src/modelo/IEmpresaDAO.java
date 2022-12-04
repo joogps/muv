@@ -8,7 +8,7 @@ public interface IEmpresaDAO {
 
 	public boolean alterar(Empresa emp);
 
-	public boolean excluir(Empresa emp);
+	public boolean excluir(String cnpj);
 
 	public ArrayList<Empresa> listarEmpresas();
 

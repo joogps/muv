@@ -26,7 +26,9 @@ public class Coordenadas {
 	}
 
 	public Float distancia(Coordenadas c) {
-		return (float) Math.sqrt(Math.pow(this.latitude - c.latitude, 2) + Math.pow(this.longitude - c.longitude, 2));
+		Float graus = (float) Math.sqrt(Math.pow(this.latitude - c.latitude, 2) + Math.pow(this.longitude - c.longitude, 2));
+		Float km = graus*(float)110.574;
+		return km;
 	}
 	
 }

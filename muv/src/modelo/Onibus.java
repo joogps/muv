@@ -9,7 +9,6 @@ public class Onibus extends Veiculo {
 	
 	public Onibus(int assentos, int capacidade, int andares, boolean sanfonado, String marca, String modelo, String cor) {
 		super (marca, modelo, cor);
-		
 		this.assentos = assentos;
 		this.capacidade = capacidade;
 		this.andares = andares;

@@ -34,4 +34,14 @@ public class Linha {
 		}
 		return (float) 0.0;
 	}
+
+	@Override
+	public String toString() {
+		String string = nome + " • " + pontos.size() + " pontos\n" + " • " + distanciaAbsoluta() + " km\n";
+		for (Ponto ponto : pontos) {
+			string += "Ponto 1 - "+ ponto.toString() + "\n";
+		}
+		
+		return string;
+	}
 }

@@ -26,4 +26,9 @@ public class Ponto {
 		this.coberto = coberto;
 	}
 	
+	@Override
+	public String toString() {
+		String string = "Latitude: " + localizacao.latitude + " - Longitude: " + localizacao.longitude + (coberto ? " - Coberto" : " - Descoberto");
+		return string;
+	}
 }
