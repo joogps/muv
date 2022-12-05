@@ -120,14 +120,14 @@ public class MainMuv {
 		Veiculo veiculo = null;
 
 		if (tipo == 'v') {
-			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
+			Integer assentos = Integer.valueOf(lerString("o número de assentos", 0));
 
 			veiculo = new Van(codigo, marca, modelo, cor, assentos);
 		} else if (tipo == 'o') {
-			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
-			int capacidade = Integer.valueOf(lerString("a capacidade total", 0));
-			int andares = Integer.valueOf(lerString("o número de andares", 0));
-			boolean sanfonado = lerBooleano("O ônibus é sanfonado?");
+			Integer assentos = Integer.valueOf(lerString("o número de assentos", 0));
+			Integer capacidade = Integer.valueOf(lerString("a capacidade total", 0));
+			Integer andares = Integer.valueOf(lerString("o número de andares", 0));
+			Boolean sanfonado = lerBooleano("O ônibus é sanfonado?");
 
 			veiculo = new Onibus(codigo, marca, modelo, cor, assentos, capacidade, andares, sanfonado);
 		}

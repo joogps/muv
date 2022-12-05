@@ -96,7 +96,7 @@ public class Empresa {
 	
 	@Override
 	public String toString() {
-		String string = nome;
+		String string = "\n"+nome;
 
 		String cnpjPattern = "(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})";
 		String parsedCnpj = String.valueOf(cnpj).replaceAll(cnpjPattern, "$1.$2.$3/$4-$5");
