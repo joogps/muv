@@ -7,7 +7,7 @@ import modelo.IEmpresaDAO;
 
 public class EmpresaDAO implements IEmpresaDAO {
 
-	private static ArrayList<Empresa> tabelaEmpresas;
+	private static ArrayList<Empresa> empresas;
 	private static EmpresaDAO instancia;
 
 	private EmpresaDAO() {
@@ -17,28 +17,28 @@ public class EmpresaDAO implements IEmpresaDAO {
 
 		if (instancia == null) {
 			instancia = new EmpresaDAO();
-			tabelaEmpresas = new ArrayList<>();
+			empresas = new ArrayList<>();
 		}
 
 		return instancia;
 	}
 
 	@Override
-	public boolean inserir(Empresa emp) {
-		if (emp != null) {
-			tabelaEmpresas.add(emp);
+	public Boolean inserir(Empresa e) {
+		if (e != null) {
+			empresas.add(e);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean alterar(Empresa e) {
-		for (Empresa empresa : tabelaEmpresas) {
+	public Boolean alterar(Empresa e) {
+		for (Empresa empresa : empresas) {
 			if (empresa.getCnpj() == e.getCnpj()) {
+				empresa.setNome(e.getNome());
 				empresa.setLinhas(e.getLinhas());
 				empresa.setFrota(e.getFrota());
-				empresa.setNome(e.getNome());
 				return true;
 			}
 		}
@@ -46,10 +46,10 @@ public class EmpresaDAO implements IEmpresaDAO {
 	}
 
 	@Override
-	public boolean excluir(String cnpj) {
-		for (Empresa empresa : tabelaEmpresas) {
+	public Boolean excluir(String cnpj) {
+		for (Empresa empresa : empresas) {
 			if (empresa.getCnpj() == cnpj) {
-				tabelaEmpresas.remove(empresa);
+				empresas.remove(empresa);
 				return true;
 			}
 		}
@@ -57,8 +57,8 @@ public class EmpresaDAO implements IEmpresaDAO {
 	}
 
 	@Override
-	public ArrayList<Empresa> listarEmpresas() {
-		return tabelaEmpresas;
+	public ArrayList<Empresa> listar() {
+		return empresas;
 	}
 
 }

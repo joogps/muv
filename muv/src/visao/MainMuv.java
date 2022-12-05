@@ -80,12 +80,12 @@ public class MainMuv {
 	}
 
 	static public void atualizar() {
-		System.out.println(separador("ATUALIZAR"));
+		System.out.println(separador("ALTERAR"));
 
 		String cnpj = lerString("o CNPJ da empresa que deseja alterar", 14);
 
+		String nome = lerString("o nome atualizado da empresa", 0);
 		
-		String nome = lerString("o nome atualizado", 0);
 	}
 
 	static public void cadastrar() {
@@ -93,8 +93,8 @@ public class MainMuv {
 
 		Empresa empresa = new Empresa();
 				
-		String nome = lerString("o nome", 0);
-		String cnpj = lerString("o CNPJ", 14)
+		String nome = lerString("o nome da empresa", 0);
+		String cnpj = lerString("o CNPJ da empresa", 14)
 						.substring(0, 14)
 						.replaceAll("[^0-9]", "");
 
@@ -202,7 +202,7 @@ public class MainMuv {
 
 	static public void listar() {
 		System.out.println(separador("EMPRESAS"));
-		ArrayList<Empresa> lista = bancoEmpresa.listarEmpresas();
+		ArrayList<Empresa> lista = bancoEmpresa.listar();
 		for (Empresa empresa : lista) {
 			System.out.println(empresa);
 		}
@@ -211,7 +211,7 @@ public class MainMuv {
 	static String lerString(String nome, Integer digitos) {
 		String valor = "";
 		while (true) {
-			System.out.println("\nDigite " + nome + ":");
+			System.out.print("\nDigite " + nome + ": ");
 			valor = leitura.nextLine();
 			
 			if (valor.isEmpty()) {
@@ -233,10 +233,11 @@ public class MainMuv {
 
 	static char lerChar(String prompt) {
 		System.out.println(prompt);
-		if (prompt.isEmpty()) {
+		String valor = leitura.nextLine();
+		if (valor.isEmpty()) {
 			return ' ';
 		} else {
-			return Character.toLowerCase(leitura.nextLine().charAt(0));
+			return Character.toLowerCase(valor.charAt(0));
 		}
 	}
 

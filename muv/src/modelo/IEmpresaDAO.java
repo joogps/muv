@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public interface IEmpresaDAO {
 
-	public boolean inserir(Empresa emp);
+	public Boolean inserir(Empresa e);
 
-	public boolean alterar(Empresa emp);
+	public Boolean alterar(Empresa e);
 
-	public boolean excluir(String cnpj);
+	public Boolean excluir(String cnpj);
 
-	public ArrayList<Empresa> listarEmpresas();
+	public ArrayList<Empresa> listar();
 
 }
