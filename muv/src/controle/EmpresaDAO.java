@@ -35,7 +35,7 @@ public class EmpresaDAO implements IEmpresaDAO {
 	@Override
 	public Boolean alterar(Empresa e) {
 		for (Empresa empresa : empresas) {
-			if (empresa.getCnpj() == e.getCnpj()) {
+			if (empresa.getCnpj().equals(e.getCnpj())) {
 				empresa.setNome(e.getNome());
 				empresa.setLinhas(e.getLinhas());
 				empresa.setFrota(e.getFrota());
@@ -48,7 +48,7 @@ public class EmpresaDAO implements IEmpresaDAO {
 	@Override
 	public Boolean excluir(String cnpj) {
 		for (Empresa empresa : empresas) {
-			if (empresa.getCnpj() == cnpj) {
+			if (empresa.getCnpj().equals(cnpj)) {
 				empresas.remove(empresa);
 				return true;
 			}
