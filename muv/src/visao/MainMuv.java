@@ -81,7 +81,11 @@ public class MainMuv {
 
 	static public void atualizar() {
 		System.out.println(separador("ATUALIZAR"));
-		System.out.println("Digite o CNPJ da empresa que deseja alterar:");
+
+		String cnpj = lerString("o CNPJ da empresa que deseja alterar", 14);
+
+		
+		String nome = lerString("o nome atualizado", 0);
 	}
 
 	static public void cadastrar() {
@@ -236,7 +240,7 @@ public class MainMuv {
 		}
 	}
 
-	static String separador(String title) {
+	public static String separador(String title) {
 		Integer length = 40;
 		String separador = "\n";
 		Integer dashes = 0;

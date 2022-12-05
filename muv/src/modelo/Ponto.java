@@ -1,16 +1,15 @@
 package modelo;
 
 public class Ponto {
-
-	 Coordenadas localizacao;
-	 boolean coberto;
+	private Coordenadas localizacao;
+	private boolean coberto;
 	
 	public Ponto(Coordenadas localizacao, boolean coberto) {
 		this.localizacao = localizacao;
 		this.coberto = coberto;
 	}
 	
-	public Coordenadas getlocalizacao() {
+	public Coordenadas getLocalizacao() {
 		return localizacao;
 }
 	

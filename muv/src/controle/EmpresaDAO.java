@@ -36,6 +36,7 @@ public class EmpresaDAO implements IEmpresaDAO {
 	public boolean alterar(Empresa e) {
 		for (Empresa empresa : tabelaEmpresas) {
 			if (empresa.getCnpj() == e.getCnpj()) {
+				empresa.setLinhas(e.getLinhas());
 				empresa.setFrota(e.getFrota());
 				empresa.setNome(e.getNome());
 				return true;

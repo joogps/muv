@@ -1,10 +1,9 @@
 package modelo;
 
 public abstract class Veiculo {
-	
-	public String marca;
-	public String modelo;
-	public String cor;
+	private String marca;
+	private String modelo;
+	private String cor;
 	
 	public Veiculo(String marca, String modelo, String cor) {
 		this.marca = marca;
@@ -41,6 +40,5 @@ public abstract class Veiculo {
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
-	
 
 }

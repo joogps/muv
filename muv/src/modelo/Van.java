@@ -1,8 +1,7 @@
 package modelo;
 
 public class Van extends Veiculo {
-	
-	public int assentos;
+	private int assentos;
 	
 	public Van(String marca, String modelo, String cor, int assentos) {
 		super (marca, modelo, cor);
@@ -22,4 +21,9 @@ public class Van extends Veiculo {
 		this.assentos = assentos;
 	}
 
+	@Override
+	public String toString() {
+		String string = "Van • Modelo " + getModelo() + " • " + getMarca() + " • " + getCor() + " • " + getAssentos() + " assentos";
+		return string;
+	}
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Linha {
 	
-	public String nome;
-	public ArrayList<Ponto> pontos;
+	private String nome;
+	private ArrayList<Ponto> pontos;
 	
 	public Linha(String nome, ArrayList<Ponto> pontos){
 		this.nome = nome;
@@ -30,7 +30,7 @@ public class Linha {
 
 	public Float distanciaAbsoluta() {
 		if (pontos.size() > 1) {
-			return pontos.get(0).localizacao.distancia(pontos.get(pontos.size()-1).localizacao);
+			return pontos.get(0).getLocalizacao().distancia(pontos.get(pontos.size()-1).getLocalizacao());
 		}
 		return (float) 0.0;
 	}

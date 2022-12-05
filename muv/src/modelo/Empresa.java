@@ -2,12 +2,14 @@ package modelo;
 
 import java.util.ArrayList;
 
+import visao.MainMuv;
+
 public class Empresa {
 
-	public String nome;
-	public String cnpj;
-	public ArrayList<Linha> linhas;
-	public ArrayList<Veiculo> frota;
+	private String nome;
+	private String cnpj;
+	private ArrayList<Linha> linhas;
+	private ArrayList<Veiculo> frota;
 	
 	public Empresa(String nome, String cnpj, ArrayList<Linha> linhas, ArrayList<Veiculo> frota) {
 		this.nome = nome;
@@ -74,14 +76,22 @@ public class Empresa {
 	
 	@Override
 	public String toString() {
+		String string = nome;
+
 		String cnpjPattern = "(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})";
 		String parsedCnpj = String.valueOf(cnpj).replaceAll(cnpjPattern, "$1.$2.$3/$4-$5");
-
-		String string = nome;
 		string += " • " + parsedCnpj;
+
+		MainMuv.separador("FROTA");
+		for (Veiculo veiculo : frota) {
+			string+= MainMuv.separador("");
+			string+= veiculo.toString();
+		}
+
+		MainMuv.separador("LINHAS");
 		for (Linha linha: linhas) {
-			string+="\n"+"-".repeat(40)+"\n";
-			string += linha.toString();
+			string+= MainMuv.separador("");
+			string+= linha.toString();
 		}
 		return string;
 	}
