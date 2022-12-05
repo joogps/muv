@@ -97,8 +97,7 @@ public class MainMuv {
 			empresa.addVeiculo(veiculo);
 		}
 
-		boolean valida = bancoEmpresa.inserir(empresa);
-		if (valida == true) {
+		if (bancoEmpresa.inserir(empresa)) {
 			System.out.println("\nCadastrado realizado com sucesso!");
 		} else {
 			System.out.println("\nErro ao cadastrar a empresa.");
