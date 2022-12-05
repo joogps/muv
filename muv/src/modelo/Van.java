@@ -3,8 +3,8 @@ package modelo;
 public class Van extends Veiculo {
 	private int assentos;
 	
-	public Van(String marca, String modelo, String cor, int assentos) {
-		super (marca, modelo, cor);
+	public Van(Integer codigo, String marca, String modelo, String cor, int assentos) {
+		super (codigo, marca, modelo, cor);
 		this.assentos = assentos;
 	}
 
@@ -23,7 +23,7 @@ public class Van extends Veiculo {
 
 	@Override
 	public String toString() {
-		String string = "Van • Modelo " + getModelo() + " • " + getMarca() + " • " + getCor() + " • " + getAssentos() + " assentos";
+		String string = "Van • " + super.toString() + " • " + getAssentos() + " assentos";
 		return string;
 	}
 }

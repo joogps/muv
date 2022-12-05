@@ -2,6 +2,7 @@ package visao;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,21 +22,9 @@ public class MainMuv {
 	static EmpresaDAO bancoEmpresa = EmpresaDAO.getInstancia();
 
 	public static void main(String[] args) {
-		// Substituir com o caminho do arquivo na máquina
-		var path = Paths.get("/Users/joogps/Desktop/muv/muv/src/visao/logo.txt");
-		System.out.println(path);
-
-		try {
-			String logo = Files.readString(path);
-			System.out.println(logo);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		logo();
 		menu();
-
 		leitura.close();
-
 	}
 
 	static public void menu() {
@@ -49,12 +38,12 @@ public class MainMuv {
 			System.out.println("3 • EXCLUIR");
 			System.out.println("4 • LISTAR");
 
-			System.out.println(separador(""));
-
-			opcao = Integer.valueOf(leitura.nextLine());
+			opcao = lerNumero("a opção desejada");
 
 			switch (opcao) {
 			case 0: {
+				System.out.println(separador(""));
+				System.out.println("Até breve!");
 				break;
 			}
 			case 1: {
@@ -62,7 +51,7 @@ public class MainMuv {
 				break;
 			}
 			case 2: {
-				atualizar();
+				alterar();
 				break;
 			}
 			case 3: {
@@ -77,15 +66,6 @@ public class MainMuv {
 
 			System.out.println(separador(""));
 		}
-	}
-
-	static public void atualizar() {
-		System.out.println(separador("ALTERAR"));
-
-		String cnpj = lerString("o CNPJ da empresa que deseja alterar", 14);
-
-		String nome = lerString("o nome atualizado da empresa", 0);
-		
 	}
 
 	static public void cadastrar() {
@@ -126,12 +106,13 @@ public class MainMuv {
 	}
 
 	public static Veiculo cadastrarVeiculo() {
-		char tipo = lerChar("Digite o tipo de veículo que deseja cadastrar (v: van, o: ônibus). Para finalizar, pressione enter.");
+		char tipo = lerChar("\nDigite o tipo de veículo que deseja cadastrar (v: van, o: ônibus). Para finalizar, pressione enter.");
 
 		if (tipo != 'v' && tipo != 'o') {
 			return null;
 		}
 
+		Integer codigo = lerNumero("o código do veículo");
 		String marca = lerString("a marca", 0);
 		String modelo = lerString("o modelo", 0);
 		String cor = lerString("a cor", 0);
@@ -141,50 +122,161 @@ public class MainMuv {
 		if (tipo == 'v') {
 			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
 
-			veiculo = new Van(marca, modelo, cor, assentos);
+			veiculo = new Van(codigo, marca, modelo, cor, assentos);
 		} else if (tipo == 'o') {
 			int assentos = Integer.valueOf(lerString("o número de assentos", 0));
 			int capacidade = Integer.valueOf(lerString("a capacidade total", 0));
 			int andares = Integer.valueOf(lerString("o número de andares", 0));
 			boolean sanfonado = lerBooleano("O ônibus é sanfonado?");
 
-			veiculo = new Onibus(marca, modelo, cor, assentos, capacidade, andares, sanfonado);
+			veiculo = new Onibus(codigo, marca, modelo, cor, assentos, capacidade, andares, sanfonado);
 		}
 
 		return veiculo;
 	}
 
 	public static Linha cadastrarLinha() {
-		Linha linha;
+		System.out.print("\nDigite um número de linha para cadastrar uma nova linha. Para finalizar, pressione enter: ");
+		String numero = leitura.nextLine();
 
-		System.out.println("\nDigite o nome da linha para cadastrar uma nova. Para finalizar, pressione enter.");
-		String nomeLinha = leitura.nextLine();
-
-		if (nomeLinha.isEmpty()) {
-			return null;
-		} else {
-			ArrayList<Ponto> pontos = new ArrayList<>();
-
-			while (true) {
-				boolean cadastrar = lerBooleano("Você quer cadastrar um novo ponto?");
-
-				if (cadastrar) {
-					String latitude = lerString("a latitude do ponto", 0);
-					String longitude = lerString("a longitude do ponto", 0);
-					Boolean coberto = lerBooleano("O ponto é coberto?");
-
-					Coordenadas coordenadas = new Coordenadas(Float.valueOf(latitude), Float.valueOf(longitude));
-					Ponto ponto = new Ponto(coordenadas, coberto);
-					pontos.add(ponto);
-				} else {
-					break;
+		Integer numeroLinha;
+		while (true) {
+			try {
+				if (numero.isEmpty()) {
+					return null;
 				}
-			}
 
-			linha = new Linha(nomeLinha, pontos);
+				numeroLinha = Integer.valueOf(numero);
+				break;
+			} catch (NumberFormatException e) {
+				System.out.print("Valor inválido. Tente novamente ou pressione enter para finalizar: ");
+				numero = leitura.nextLine();
+			}
 		}
 
+		String nomeLinha = lerString("o nome da linha " + numeroLinha, 0);
+
+		ArrayList<Ponto> pontos = new ArrayList<>();
+
+		while (true) {
+			boolean cadastrar = lerBooleano("Você quer cadastrar um novo ponto?");
+
+			if (cadastrar) {
+				String latitude = lerString("a latitude do ponto", 0);
+				String longitude = lerString("a longitude do ponto", 0);
+				Boolean coberto = lerBooleano("O ponto é coberto?");
+
+				Coordenadas coordenadas = new Coordenadas(Float.valueOf(latitude), Float.valueOf(longitude));
+				Ponto ponto = new Ponto(coordenadas, coberto);
+				pontos.add(ponto);
+			} else {
+				break;
+			}
+		}
+
+		Linha linha = new Linha(numeroLinha, nomeLinha, pontos);
 		return linha;
+	}
+
+	static public void alterar() {
+		System.out.println(separador("ALTERAR"));
+
+		String cnpj = lerString("o CNPJ da empresa que deseja alterar", 14)
+						.substring(0, 14)
+						.replaceAll("[^0-9]", "");
+
+		Empresa empresa = null;
+		for (Empresa e: bancoEmpresa.listar()) {
+			if (e.getCnpj().equals(cnpj)) {
+				empresa = e;
+				break;
+			}
+		}
+
+		if (empresa != null) {
+			System.out.println(empresa);
+			
+			String nome = lerString("o nome atualizado da empresa", 0);
+			if (!nome.isEmpty()) {
+				empresa.setNome(nome);
+			}
+
+			Integer opcao = Integer.MAX_VALUE;
+			while (opcao != 0) {
+				System.out.println("Há " + empresa.getLinhas().size() + " linhas cadastradas para esta empresa.");
+				System.out.println("0 • PRÓXIMO");
+				System.out.println("1 • CADASTRAR");
+				System.out.println("2 • EXCLUIR");
+
+				opcao = lerNumero("a opção desejada");
+				switch (opcao) {
+					case 0: {
+						break;
+					}
+					case 1: {
+						Linha linha = cadastrarLinha();
+						if (linha == null) {
+							break;
+						}
+						empresa.addLinha(linha);
+						break;
+					}
+					case 2: {
+						System.out.print("\nDigite o número da linha que deseja excluir: ");
+						Integer numero = Integer.valueOf(leitura.nextLine());
+						if (empresa.excluirLinha(numero)) {
+							System.out.println("Linha " + numero + " excluída com sucesso.");
+						} else {
+							System.out.println("Linha " + numero + " não encontrada.");
+						}
+						
+						break;
+					}
+				}
+
+				System.out.println(separador(""));
+			}
+
+			opcao = Integer.MAX_VALUE;
+			while (opcao != 0) {
+				System.out.println("Há " + empresa.getFrota().size() + " veículos cadastrados para esta empresa.");
+				System.out.println("0 • FINALIZAR");
+				System.out.println("1 • CADASTRAR");
+				System.out.println("2 • EXCLUIR");
+
+				opcao = lerNumero("a opção desejada");
+				switch (opcao) {
+					case 0: {
+						break;
+					}
+					case 1: {
+						Veiculo veiculo = cadastrarVeiculo();
+						if (veiculo == null) {
+							break;
+						}
+						empresa.addVeiculo(veiculo);
+						break;
+					}
+					case 2: {
+						System.out.print("\nDigite o código do veículo que deseja excluir: ");
+						Integer codigo = Integer.valueOf(leitura.nextLine());
+						if (empresa.excluirVeiculo(codigo)) {
+							System.out.println("Veículo " + codigo + " excluído com sucesso.");
+						} else {
+							System.out.println("Veículo " + codigo + " não encontrado.");
+						}
+						
+						break;
+					}
+				}
+
+				System.out.println(separador(""));
+			}
+		} else {
+			System.out.println("Empresa não encontrada. Verifique o CNPJ e tente novamente.");
+		}
+		
+		bancoEmpresa.alterar(empresa);
 	}
 
 	public static void excluir() {
@@ -208,6 +300,7 @@ public class MainMuv {
 		}
 	}
 
+	// Validação
 	static String lerString(String nome, Integer digitos) {
 		String valor = "";
 		while (true) {
@@ -241,8 +334,24 @@ public class MainMuv {
 		}
 	}
 
+	static Integer lerNumero(String nome) {
+		Integer valor = 0;
+		while (true) {
+			System.out.print("\nDigite " + nome + ": ");
+			try {
+				valor = Integer.valueOf(leitura.nextLine());
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println("Valor inválido. Tente novamente.");
+			}
+		}
+
+		return valor;	
+	}
+
+	// Interface
 	public static String separador(String title) {
-		Integer length = 40;
+		Integer length = 60;
 		String separador = "\n";
 		Integer dashes = 0;
 
@@ -261,5 +370,17 @@ public class MainMuv {
 		separador+="\n";
 
 		return separador;
+	}
+
+	static public void logo() {
+		// Substituir com o caminho do arquivo na máquina
+		Path path = Paths.get("/Users/joogps/Desktop/muv/muv/src/visao/logo.txt");
+
+		try {
+			String logo = Files.readString(path);
+			System.out.println(logo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

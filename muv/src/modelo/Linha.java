@@ -4,19 +4,29 @@ import java.util.ArrayList;
 
 public class Linha {
 	
+	private Integer numero;
 	private String nome;
 	private ArrayList<Ponto> pontos;
 	
-	public Linha(String nome, ArrayList<Ponto> pontos){
+	public Linha(Integer numero, String nome, ArrayList<Ponto> pontos) {
+		this.numero = numero;
 		this.nome = nome;
 		this.pontos = pontos;
 	}
+
+	public Integer getNumero() {
+		return numero;
+	}
 	
-	public String getnome() {
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getNome() {
 		return nome;
 	}
 	
-	public void setnome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
@@ -37,12 +47,12 @@ public class Linha {
 
 	@Override
 	public String toString() {
-		String string = nome + " • " + pontos.size() + " pontos" + " • " + distanciaAbsoluta() + " km\n";
+		String string = "\n[" + numero + "] " + nome + " • " + pontos.size() + " pontos" + " • " + distanciaAbsoluta() + " km";
 		int indice = 0;
 		for (Ponto ponto : pontos) {
-			string += "\nPonto " + indice + ": " + ponto.toString() + "";
-			indice++; 		}
-		
+			string += "\nPonto " + indice + ": " + ponto.toString();
+			indice++;
+		}
 		return string;
 	}
 }

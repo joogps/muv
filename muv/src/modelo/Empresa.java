@@ -58,6 +58,16 @@ public class Empresa {
 		this.linhas.add(linha);
 	}
 	
+	public boolean excluirLinha(Integer numero) {
+		for (Linha l : linhas) {
+			if (l.getNumero().equals(numero)) {
+				linhas.remove(l);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ArrayList<Veiculo> getFrota(){
 		return frota;
 	}
@@ -73,6 +83,16 @@ public class Empresa {
 	public void addVeiculo(Veiculo veiculo) {
 		this.frota.add(veiculo);
 	}
+
+	public boolean excluirVeiculo(Integer codigo) {
+		for (Veiculo v : frota) {
+			if (v.getCodigo().equals(codigo)) {
+				frota.remove(v);
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {
@@ -82,15 +102,13 @@ public class Empresa {
 		String parsedCnpj = String.valueOf(cnpj).replaceAll(cnpjPattern, "$1.$2.$3/$4-$5");
 		string += " • " + parsedCnpj;
 
-		MainMuv.separador("FROTA");
+		string+= MainMuv.separador("frota");
 		for (Veiculo veiculo : frota) {
-			string+= MainMuv.separador("");
 			string+= veiculo.toString();
 		}
 
-		MainMuv.separador("LINHAS");
+		string+= MainMuv.separador("linhas");
 		for (Linha linha: linhas) {
-			string+= MainMuv.separador("");
 			string+= linha.toString();
 		}
 		return string;

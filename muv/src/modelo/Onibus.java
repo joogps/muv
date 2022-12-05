@@ -6,8 +6,8 @@ public class Onibus extends Veiculo {
 	private int andares;
 	private boolean sanfonado;
 	
-	public Onibus(String marca, String modelo, String cor, int assentos, int capacidade, int andares, boolean sanfonado) {
-		super (marca, modelo, cor);
+	public Onibus(Integer codigo, String marca, String modelo, String cor, int assentos, int capacidade, int andares, boolean sanfonado) {
+		super (codigo, marca, modelo, cor);
 		this.assentos = assentos;
 		this.capacidade = capacidade;
 		this.andares = andares;
@@ -56,7 +56,7 @@ public class Onibus extends Veiculo {
 
 	@Override
 	public String toString() {
-		String string = "Ônibus • Modelo " + getModelo() + " • " + getMarca() + " • " + getCor() + " • " + getAssentos() + " assentos • Capacidade total de " + getCapacidade() + "  pessoas • " + getAndares() + " andares • " + (getSanfonado() ? "sanfonado" : "não sanfonado");
+		String string = "Ônibus • " + super.toString() + " • " + getAssentos() + " assentos • Capacidade total de " + getCapacidade() + "  pessoas • " + getAndares() + " andares • " + (getSanfonado() ? "sanfonado" : "não sanfonado");
 		return string;
 	}
 }
