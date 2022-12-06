@@ -54,7 +54,7 @@ public abstract class Veiculo {
 
 	@Override
 	public String toString() {
-		String string = "[" + getCodigo() + "] Modelo " + getModelo() + " • " + getMarca() + " • " + getCor() + " • ";
+		String string = "[" + getCodigo() + "] Modelo " + getModelo() + " • " + getMarca() + " • " + getCor();
 		return string;
 	}
 }

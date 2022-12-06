@@ -102,12 +102,12 @@ public class Empresa {
 		String parsedCnpj = String.valueOf(cnpj).replaceAll(cnpjPattern, "$1.$2.$3/$4-$5");
 		string += " • " + parsedCnpj;
 
-		string+= MainMuv.separador("frota");
+		string+= MainMuv.separador("FROTA");
 		for (Veiculo veiculo : frota) {
 			string+= veiculo.toString();
 		}
 
-		string+= MainMuv.separador("linhas");
+		string+= MainMuv.separador("LINHAS");
 		for (Linha linha: linhas) {
 			string+= linha.toString();
 		}
